@@ -1,0 +1,16 @@
+web:
+  build: .
+  command: python scripts/api.py
+  links:
+    - postgres
+    - redis
+  ports: 
+    - "4243:8000"
+
+postgres:
+  image: postgres
+
+redis:
+  image: redis
+
+
