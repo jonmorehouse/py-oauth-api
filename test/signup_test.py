@@ -1,10 +1,11 @@
-print "HI"
 import unittest
-import app.app as app
+import basetest
 
-class TestSignup(unittest.TestCase):
+class TestSignup(basetest.BaseTest):
 
     def test_valid_signup(self):
+
+        self.app.get('/').data
 
         pass
 
