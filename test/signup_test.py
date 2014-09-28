@@ -1,3 +1,4 @@
+print "HI"
 import unittest
 import app.app as app
 
