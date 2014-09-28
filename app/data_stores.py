@@ -1,7 +1,8 @@
-from redis import Redis
+from redis import StrictRedis
 import os
 
-redis_conn = Redis(host=os.getenv("REDIS_HOST"), port=int(os.getenv("REDIS_PORT")))
+redis_conn = StrictRedis(host=os.getenv("REDIS_HOST"), port=int(os.getenv("REDIS_PORT")))
 pq_conn = "hi"
 
 
+test = "hi"
