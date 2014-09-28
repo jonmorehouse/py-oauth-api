@@ -1,6 +1,6 @@
 web:
   build: .
-  command: python scripts/api.py
+  command: python /app/api.py
   links:
     - postgres
     - redis

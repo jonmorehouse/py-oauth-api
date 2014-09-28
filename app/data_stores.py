@@ -1,6 +1,7 @@
 from redis import Redis
 import os
 
-redis = Redis(host=os.getenv("REDIS_HOST"), port=int(os.getenv("REDIS_PORT")))
+redis_conn = Redis(host=os.getenv("REDIS_HOST"), port=int(os.getenv("REDIS_PORT")))
+pq_conn = "hi"
 
 
