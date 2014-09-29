@@ -13,18 +13,14 @@ class Account(object):
     def signup(self, **kw):
 
         form = kw.get("form")
-        username = form.get("username")
-        phone_number = form.get("phone_number")
-        #query = """insert into accounts 
-            #(phone_number, username, password_hash) 
-            #values ('5124105551', 'jon', crypt('test', gen_salt('md5')));
-        #"""
-        query = self.table.insert(columns=[self.table.username, self.table.phone_number, self.table.password_hash],
-                values = [["username", "my_phone", "crypt('test', gen_salt('md5'))" ]])
 
-        print "HERE"
+        # NOTE generate query - I need to modify the python-sql library
+        query = """insert into accounts 
+            (phone_number, username, password_hash)
+            VALUES (%%s, %%s, crypt('%s', gen_salt('md5'))) """ % form.get("password")
 
-        db.execute(tuple(query))
+        print query
+        db.execute(query, values = (form.get("phone_number", form.get("username"))))
 
         # NOTE parameters have been validated. Attempt to insert 
         # NOTE once insert is completed start twilio callback
@@ -36,3 +32,7 @@ class Account(object):
         
 
 
+#query = """insert into accounts 
+#(phone_number, username, password_hash) 
+#values ('5124105551', 'jon', crypt('test', gen_salt('md5')));
+#"""
