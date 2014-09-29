@@ -14,11 +14,18 @@ class Account(object):
 
         form = kw.get("form")
         username = form.get("username")
-        encrypted_password = True
         phone_number = form.get("phone_number")
+        #query = """insert into accounts 
+            #(phone_number, username, password_hash) 
+            #values ('5124105551', 'jon', crypt('test', gen_salt('md5')));
+        #"""
+        query = self.table.insert(columns=[self.table.username, self.table.phone_number, self.table.password_hash],
+                values = [["username", "my_phone", "crypt('test', gen_salt('md5'))" ]])
 
-        print username
-        print phone_number
+        print "HERE"
+
+        db.execute(tuple(query))
+
         # NOTE parameters have been validated. Attempt to insert 
         # NOTE once insert is completed start twilio callback
         #query = self.table.insert(username = )
