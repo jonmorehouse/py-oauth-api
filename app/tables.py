@@ -11,7 +11,10 @@ class AccountTable(object):
     def create_if_not_exists(cls):
 
         query = """CREATE TABLE IF NOT EXISTS accounts (
-            id UUID PRIMARY KEY
+            id UUID PRIMARY KEY,
+            username text UNIQUE,
+            phone_number text UNIQUE,
+            activated BOOLEAN DEFAULT false
         );
         """
         cls.execute(query)
@@ -23,7 +26,6 @@ class AccountTable(object):
     @classmethod
     def query_many(query):
         return cls.execute(query, "fetchmany")
-
 
     @classmethod
     def query_all(query):
@@ -48,13 +50,4 @@ class AccountTable(object):
 
         return results
             
-
-
-
-
-
-
-
-
-
 
