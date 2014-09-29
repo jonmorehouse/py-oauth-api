@@ -1,9 +1,9 @@
 import os
+import psycopg2
 
 from redis import StrictRedis
-import psycopg2
 from config import Config
-from tables import AccountTable
+import tables
 
 # TODO: set up logger or modify my Config library
 Config.load_from_list(["REDIS_HOST",
@@ -23,5 +23,5 @@ pg_conn = psycopg2.connect(database=Config.POSTGRES_DB,
                             port=int(Config.POSTGRES_PORT))
 
 # NOTE make sure tables are properly set up ... PG isn't quite as easy as redis :)
-AccountTable.create_if_not_exists()
+tables.Account.create_if_not_exists()
 

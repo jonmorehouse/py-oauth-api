@@ -3,7 +3,7 @@ from sql import *
 import data_stores
 
 # TODO make this class use the MethodMissingMetaClass ...?
-class AccountTable(object):
+class Account(object):
 
     """ Handle queries and setup of the Accounts table. Use classmethods only """
 
@@ -11,9 +11,9 @@ class AccountTable(object):
     def create_if_not_exists(cls):
 
         query = """CREATE TABLE IF NOT EXISTS accounts (
-            id UUID PRIMARY KEY,
-            username text UNIQUE,
-            phone_number text UNIQUE,
+            id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+            username text UNIQUE NOT NULL,
+            phone_number text UNIQUE NOT NULL,
             activated BOOLEAN DEFAULT false
         );
         """
@@ -49,5 +49,6 @@ class AccountTable(object):
         cursor.close()
 
         return results
-            
+
+
 
