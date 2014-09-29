@@ -1,5 +1,10 @@
-flask
-redis
-psycopg2
-python-sql
-py-config -e git://github.com/jonmorehouse/py-config.git
+Flask==0.10.1
+Jinja2==2.7.3
+MarkupSafe==0.23
+PyYAML==3.10
+Werkzeug==0.9.6
+itsdangerous==0.24
+psycopg2==2.5.4
+-e git://github.com/jonmorehouse/py-config.git@e82836296cb54df39901847000d5eec132281c78#egg=py_config-master
+python-sql==0.4
+redis==2.10.3
