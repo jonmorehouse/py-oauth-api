@@ -22,7 +22,7 @@ postgres:
     USER: "accounts" 
     PASS: "accounts_password"
     DB: "accounts"
-    EXTENSIONS: "uuid-ossp"
+    EXTENSIONS: "uuid-ossp pgcrypto"
   expose:
     - "5432"
   ports: 
