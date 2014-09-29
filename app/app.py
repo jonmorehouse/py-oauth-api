@@ -20,9 +20,4 @@ def build_json_app(name, **kwargs):
 
 app = build_json_app("accounts_api")
 
-@app.route('/')
-def index():
-
-    return jsonify({"name": "jon"})
-
-
+import router
