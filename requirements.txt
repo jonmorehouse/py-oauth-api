@@ -2,3 +2,4 @@ flask
 redis
 psycopg2
 python-sql
+py-config -e git://github.com/jonmorehouse/py-config.git

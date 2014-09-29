@@ -1,4 +1,4 @@
-class MethodMissing(type):
+class MethodMissingMetaClass(type):
 
     def __getattr__(cls, attr_name):
 

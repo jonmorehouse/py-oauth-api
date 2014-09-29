@@ -1,11 +1,13 @@
 
+
 class Account:
 
     """ Account is the backing for creating, retrieving, and removing accounts """
-    def signup(**kw):
+    def signup(self, **kw):
 
-        print "Signup called"
+        print kw.get("form")
         pass
+    
 
 
 
