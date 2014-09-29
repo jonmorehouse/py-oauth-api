@@ -1,4 +1,4 @@
-
+from data_stores import pg_conn, redis_conn
 
 class Account:
 
