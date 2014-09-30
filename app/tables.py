@@ -27,39 +27,47 @@ class Account(object):
     
     @classmethod
     def query_one(cls, query, **kw):
-        return cls.execute(query, "fetchone", **kw)
+        return cls.execute_with_results(query, "fetchone", **kw)
 
     @classmethod
     def query_many(cls, query, **kw):
-        return cls.execute(query, "fetchmany", **kw)
+        return cls.execute_with_results(query, "fetchmany", **kw)
 
     @classmethod
     def query_all(cls, query, **kw):
-        return cls.execute(query, "fetchall", **kw)
+        return cls.execute_with_results(query, "fetchall", **kw)
 
     @classmethod
-    def execute(cls, query, method_name = False, **kw):
-        """ Run a query with the correct fetch method for the accounts table table """
+    def execute(cls, query, **kw):
+        """ Run a query ignoring the cursor results """
         cursor = data_stores.pg_conn.cursor()
-        cursor.execute(query, kw.get("values"))
-        
-        results = False
-        if method_name:
-            try:
-                method = getattr(cursor, method_name)
-            except: 
-                print "ERROR"
-                pass
-            else: 
-                results = method()
 
         try:
+            cursor.execute(query, kw.get("values"))
             data_stores.pg_conn.commit()
         except Exception as e:
             data_stores.pg_conn.rollback()
-            raise e 
+            raise e
+
+        cursor.close() 
+
+    @classmethod
+    def execute_with_results(cls, query, method_name = "fetchone", **kw):
+        """ Execute a query with an optional to call on the cursor for grabbing results """
+        cursor = data_stores.pg_conn.cursor()
+
+        # NOTE do this on purpose to notify any tests of method_name which is invalid ...
+        method = getattr(cursor, method_name)
+
+        try:
+            cursor.execute(query, kw.get("values"))
+            results = method()
+            data_stores.pg_conn.commit()
+        except Exception as e:
+            results = False
+            data_stores.pg_conn.rollback()
+            raise e
 
         cursor.close()
         return results
-
 

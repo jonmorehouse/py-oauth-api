@@ -13,14 +13,14 @@ class TestSignup(basetest.BaseTest):
 
     def test_valid_signup(self):
 
-        print self.app.post("/signup", data=self.params).data
+        self.app.post("/signup", data=self.params).data
 
         pass
 
     def test_invalid_signup(self):
 
         print self.app.post("/signup", data=self.params).data
-        #print self.app.post("/signup", data=self.params).data
+        print self.app.post("/signup", data=self.params).data
 
 if __name__ == '__main__':
     unittest.main()

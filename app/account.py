@@ -12,19 +12,18 @@ class Account(object):
     """ Account is the backing for creating, retrieving, and removing accounts """
     def signup(self, **kw):
 
-        print "HERE"
         form = kw.get("form")
 
         # NOTE create the user
         query = """insert into accounts
             (phone_number, username, password_hash)
             VALUES (%s, %s, crypt(%s, gen_salt('md5')))
+            RETURNING id
             """
-        #RETURNING id 
         values = (form.get("phone_number"), form.get("username"), "some_password")
         try:
             result = db.query_one(query, values = values)
-            pass
+            account_id = result[0]
         except:
             pass 
         else:
