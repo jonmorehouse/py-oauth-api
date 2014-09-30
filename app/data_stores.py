@@ -2,18 +2,9 @@ import os
 import psycopg2
 
 from redis import StrictRedis
-from config import Config
 import tables
+from app_config import Config
 
-# TODO: set up logger or modify my Config library
-Config.load_from_list(["REDIS_HOST",
-    "REDIS_PORT",
-    "POSTGRES_HOST",
-    "POSTGRES_PORT",
-    "POSTGRES_USER",
-    "POSTGRES_PASS",
-    "POSTGRES_DB",
-    ])
 
 redis_conn = StrictRedis(host=Config.REDIS_HOST, port=int(Config.REDIS_PORT))
 pg_conn = psycopg2.connect(database=Config.POSTGRES_DB,

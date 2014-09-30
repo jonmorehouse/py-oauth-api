@@ -1,4 +1,5 @@
 from sql import *
+import psycopg2
 
 import data_stores
 
@@ -45,7 +46,7 @@ class Account(object):
         try:
             cursor.execute(query, kw.get("values"))
             data_stores.pg_conn.commit()
-        except Exception as e:
+        except psycopg2.Error as e:
             data_stores.pg_conn.rollback()
             raise e
 
@@ -63,7 +64,7 @@ class Account(object):
             cursor.execute(query, kw.get("values"))
             results = method()
             data_stores.pg_conn.commit()
-        except Exception as e:
+        except psycopg2.Error as e:
             results = False
             data_stores.pg_conn.rollback()
             raise e

@@ -1,6 +1,8 @@
 import sql
+import psycopg2
 
 from data_stores import redis_conn
+from activation import Activation
 from tables import Account as db
 
 class Account(object):
@@ -18,24 +20,24 @@ class Account(object):
         query = """insert into accounts
             (phone_number, username, password_hash)
             VALUES (%s, %s, crypt(%s, gen_salt('md5')))
-            RETURNING id
+            RETURNING id, phone_number, username
             """
         values = (form.get("phone_number"), form.get("username"), "some_password")
         try:
             result = db.query_one(query, values = values)
-            account_id = result[0]
-        except:
-            pass 
-        else:
-            pass
+        except psycopg2.Error as e:
+            raise e
+            return False
 
-        
+        # NOTE pull apart the result tuple and trigger a new "activation"
+        account_id = result[0]
+        phone_number = result[1]
+        username = result[2]
 
-        return {}
+        Activation(account_id = account_id).trigger(phone_number = phone_number)
+        return {"account_id": account_id, "username": username}
 
+    def login(self, **kw):
 
+        pass
 
-#query = """insert into accounts 
-#(phone_number, username, password_hash) 
-#values ('5124105551', 'jon', crypt('test', gen_salt('md5')));
-#"""
