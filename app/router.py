@@ -1,18 +1,15 @@
-from flask import request
+from flask import request, jsonify
 from app import app
 from response_handler import action_handler
 
 @app.route('/signup', methods = ['POST'])
 def signup():
-
-    action_handler("signup", request.form)
-    pass
+    return jsonify(action_handler("signup", request.form)), 201
 
 @app.route('/verify', methods = ['PUT'])
 def verify():
 
     pass
-
 
 
 @app.route('/login', methods = ['POST'])

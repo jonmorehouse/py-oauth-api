@@ -8,7 +8,7 @@ class AccountActions:
     @staticmethod
     def signup(**kw):
         """ Signup a user """
-        Account().signup(**kw)
+        return Account().signup(**kw)
 
     @staticmethod
     def activate(**kw):
@@ -18,7 +18,6 @@ class AccountActions:
 
     @staticmethod
     def deactivate(**kw):
-        
         """ Deactivate an account, temporarily """
         pass
 
@@ -44,6 +43,10 @@ class AccountActions:
     def login(**kw):
         """ Checks login. Returns a bearer token if validated """
 
+        pass
+
+    @staticmethod
+    def refresh(**kw):
         pass
 
     @staticmethod
