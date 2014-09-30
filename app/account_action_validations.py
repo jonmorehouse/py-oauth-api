@@ -6,7 +6,8 @@ class AccountActionValidations:
 
     __metaclass__ = MethodMissingMetaClass
     required_params = {
-        "signup" : ["username", "phone_number", "password"]
+        "signup" : ["username", "phone_number", "password"],
+        "activate": ["code"]
     }
 
     @classmethod

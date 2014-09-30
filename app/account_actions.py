@@ -13,7 +13,6 @@ class AccountActions:
     @staticmethod
     def activate(**kw):
         """ Activate an account with the given text message """
-
         pass
 
     @staticmethod

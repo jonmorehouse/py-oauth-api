@@ -2,12 +2,18 @@ import unittest
 
 import basetest
 
-class TestLogin(basetest.BaseTest):
+class LoginTest(basetest.BaseTest):
 
     def setUp(self):
-        super(TestLogin, self).setUp()
-        self.account = self.signup()
+        super(LoginTest, self).setUp()
+        self.signup()
+    
+    def login(self):
+        return self.client.post("/session/%s" % self.account_id, data = {"password": "password", "username": "jon"})
 
-    def test_login(self):
+    def test_login_redirects(self):
 
+        
         pass
+
+

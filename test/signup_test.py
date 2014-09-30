@@ -1,28 +1,29 @@
-import unittest
+from mock import patch
+
+from app import activation
 import basetest
 
-class TestSignup(basetest.BaseTest):
+@patch.object(activation.Activation, 'send_sms')
+class SignupTest(basetest.BaseTest):
 
-    def setUp(self):
-        super(TestSignup, self).setUp()
-        self.params = {
-            "password": "mypass",
-            "username": "jon",
-            "phone_number": "5134107771"
-        }
+    def test_signup(self, *args):
+        account = self.client.post("/account", data=self.params)
+        self.assertIsNotNone(account.json)
+        self.assertIsNotNone(account.json["account_id"])
 
-    def test_valid_signup(self):
+    def test_missing_parameters(self, *args):
+        del self.params["username"]
+        account = self.client.post("/account", data=self.params)
+        self.assertEquals(account.status_code, 500)
 
-        pass
+    def test_duplicate_signup(self, *args):
+        account = False
+        for i in range(2):
+            account = self.client.post("/account", data=self.params)
+        self.assertEquals(account.status_code, 500)
 
-    def test_invalid_signup(self):
-
-        pass
-        #print self.app.post("/signup", data=self.params).data
-        #print self.app.post("/signup", data=self.params).data
-
-if __name__ == '__main__':
-    unittest.main()
-
+    def test_ridirect(self, *args):
+        account = self.client.post("/signup", data=self.params)
+        self.assertEquals(account.status_code, 307) 
 
 

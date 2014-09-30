@@ -20,4 +20,5 @@ def build_json_app(name, **kwargs):
 
 app = build_json_app("accounts_api")
 
-import router
+import account_router
+import session_router
