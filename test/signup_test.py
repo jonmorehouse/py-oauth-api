@@ -1,6 +1,8 @@
 import unittest
 import basetest
 
+from app import tables
+
 class TestSignup(basetest.BaseTest):
 
     def setUp(self):
@@ -12,17 +14,13 @@ class TestSignup(basetest.BaseTest):
     def test_valid_signup(self):
 
         print self.app.post("/signup", data=self.params).data
+
         pass
 
     def test_invalid_signup(self):
 
-        self.app.post("/signup", data={})
-
-        pass
-
-    def test_duplicate_signup(self):
-
-        pass
+        print self.app.post("/signup", data=self.params).data
+        #print self.app.post("/signup", data=self.params).data
 
 if __name__ == '__main__':
     unittest.main()

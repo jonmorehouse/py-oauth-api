@@ -20,6 +20,10 @@ class Account(object):
         );
         """
         cls.execute(query)
+
+    @classmethod
+    def drop_if_exists(cls):
+        return cls.execute("DROP TABLE IF EXISTS accounts")
     
     @classmethod
     def query_one(cls, query, **kw):
@@ -43,14 +47,19 @@ class Account(object):
         if method_name:
             try:
                 method = getattr(cursor, method_name)
-            except: pass
+            except: 
+                print "ERROR"
+                pass
             else: 
                 results = method()
 
-        data_stores.pg_conn.commit()
+        try:
+            data_stores.pg_conn.commit()
+        except Exception as e:
+            data_stores.pg_conn.rollback()
+            raise e 
+
         cursor.close()
-
         return results
-
 
 
