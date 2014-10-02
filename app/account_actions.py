@@ -13,7 +13,7 @@ class AccountActions:
     @staticmethod
     def activate(**kw):
         """ Activate an account with the given text message """
-        pass
+        return Activation(**kw).fulfill(**kw)
 
     @staticmethod
     def deactivate(**kw):
@@ -23,7 +23,6 @@ class AccountActions:
     @staticmethod
     def retrieve(**kw):
         """ Retrieve an account, minus the password of course :) """
-
         pass
 
     @staticmethod

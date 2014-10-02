@@ -22,7 +22,6 @@ class BaseTest(TestCase):
             "phone_number": "5134107771"
         }
 
-
     def tearDown(self):
         Account.drop_if_exists()
 
@@ -34,6 +33,6 @@ class BaseTest(TestCase):
             self.activation_code = redis_conn.hget("activation", self.account_id)
 
             if activate:
-                self.client.put("/account/%s/activate", data = {"code": self.activation_code})
+                self.client.put("/account/%s/activate" % self.account_id, data = {"code": self.activation_code})
 
 

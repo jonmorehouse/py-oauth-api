@@ -20,10 +20,11 @@ def reactivate_account(account_id):
 
     pass
 
-@app.route('/signup/<account_id>/activate', methods=['PUT'])
+@app.route('/account/<account_id>/activate', methods=['PUT'])
 def activate_account(account_id):
 
-    pass
+    print "HERE"
+    return {}
 
 @app.route('/account/<account_id>/deactivate', methods=['DELETE'])
 def deactivate_account(account_id):

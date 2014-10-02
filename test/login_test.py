@@ -13,7 +13,6 @@ class LoginTest(basetest.BaseTest):
 
     def test_login_redirects(self):
 
-        
         pass
 
 

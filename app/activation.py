@@ -6,6 +6,8 @@ from data_stores import redis_conn
 
 class Activation(object):
     """ Handle twilio integration for activation of accounts """
+    def __init__(**kw):
+        self.account_id = kw.get("account_id")
 
     @staticmethod
     def send_sms(phone_number, body):
@@ -16,14 +18,14 @@ class Activation(object):
         self.account_id = kw.get("account_id")
 
     def trigger(self, **kw):
-
         code = randrange(1000, 9999)
         redis_conn.hset("activation", self.account_id, code)
         self.send_sms("5134107771", "Activation Code: %i" % (code))
 
     def fulfill(self, **kw):
 
-        expected_code = redis_conn.hget("activation", self.account_id, code)
+        print "HERE"
+        expected_code = redis_conn.hget("activation", self.account_id)
         if not expected_code: 
             raise Exception("No activation process found") 
             return
@@ -31,6 +33,7 @@ class Activation(object):
         if not int(expected_code) == int(kw.get("code")):
             raise Exception("Invalid activation code")
 
+        print "MADE IT HERE"
         redis_conn.hdel("activation", self.account_id, code)
         account.Account(account_id = self.account_id).activate()
 
